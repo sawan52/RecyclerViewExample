@@ -2,10 +2,12 @@ package com.example.recyclerview;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +48,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // using List listItemList object we are getting the specific position of listItems
         final ListItem listItem = listItemList.get(position);
 
+        // adding animation to the Image View & Card View
+        holder.imageView.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation));
+
+        holder.cardView.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation));
+
+
         // now using ViewHolder object 'holder' we can get the data for both TextViews
         holder.textViewHead.setText(listItem.getHeading());
         holder.textViewDesc.setText(listItem.getDescription());
@@ -54,7 +62,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Picasso.get().load(listItem.getImageUrl()).into(holder.imageView);
 
         // set an onCLickListener on each listItem of the List
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -74,7 +82,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // define both the TextViews for ViewHolder
         private TextView textViewHead, textViewDesc;
         private ImageView imageView;
-        private LinearLayout linearLayout;
+        private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,7 +91,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             textViewHead = itemView.findViewById(R.id.textViewHeading);
             textViewDesc = itemView.findViewById(R.id.textViewDescription);
             imageView = itemView.findViewById(R.id.imageView);
-            linearLayout = itemView.findViewById(R.id.linearLayout);
+            cardView = itemView.findViewById(R.id.card_view);
         }
     }
 }
